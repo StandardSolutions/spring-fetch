@@ -13,7 +13,7 @@
 
     <groupId>ru.standard-solutions</groupId>
     <artifactId>spring-fetch</artifactId>
-    <version>0.2.5</version>
+    <version>0.2.6</version>
     <name>spring-fetch</name>
     <description>Fetching API for generating spring boot database queries</description>
     <url>standard-solutions.ru</url>
