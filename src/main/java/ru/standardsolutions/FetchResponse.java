@@ -45,7 +45,7 @@ public class FetchResponse<T> {
 
     @NotNull
     @Min(value = 1, message = "Индекс первого ресурса на странице не может быть меньше {value}")
-    @Max(value = Long.MAX_VALUE, message = "Индекс первого ресурса на странице не может быть больше {value}")
+    @Max(value = Integer.MAX_VALUE, message = "Индекс первого ресурса на странице не может быть больше {value}")
     @Schema(description = "Индекс первого ресурса на странице, начинается с 1")
     private final Long offset;
 
@@ -65,7 +65,7 @@ public class FetchResponse<T> {
 
     @NotNull
     @Min(value = 0, message = "Количество ресурсов в коллекции не может быть меньше {value}")
-    @Max(value = Long.MAX_VALUE, message = "Количество ресурсов в коллекции не может быть больше {value}")
+    @Max(value = Integer.MAX_VALUE, message = "Количество ресурсов в коллекции не может быть больше {value}")
     @Schema(description = "Количество ресурсов в коллекции")
     private final Long totalElements;
 
