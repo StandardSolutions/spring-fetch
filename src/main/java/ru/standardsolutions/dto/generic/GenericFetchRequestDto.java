@@ -30,11 +30,11 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 @Schema(description = "Параметризуемый DTO для fetch-запросов с фильтрацией и сортировкой")
 public class GenericFetchRequestDto<F extends Filters, S extends Sortable> {
 
-    @Schema(description = "Фильтры для поиска", requiredMode = NOT_REQUIRED)
+    @Schema(description = "Фильтры для поиска", requiredMode = NOT_REQUIRED, nullable = true)
     private final F filters;
 
     @ArraySchema(schema = @Schema(description = "Параметр сортировки", requiredMode = NOT_REQUIRED),
-            arraySchema = @Schema(description = "Параметры сортировки"),
+            arraySchema = @Schema(description = "Параметры сортировки", nullable = true),
             maxItems = Short.MAX_VALUE)
     private final List<SortField<S>> sort;
 
