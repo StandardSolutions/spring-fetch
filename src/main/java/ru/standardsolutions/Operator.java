@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -157,6 +158,11 @@ public enum Operator {
         }
     };
 
+    private static final DateTimeFormatter[] LOCAL_DATE_TIME_FORMATTERS = new DateTimeFormatter[]{
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    };
+
     private final String strValue;
 
     Operator(String strValue) {
@@ -207,7 +213,14 @@ public enum Operator {
         } else if (fieldType == LocalDate.class) {
             return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } else if (fieldType == LocalDateTime.class) {
-            return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            for (DateTimeFormatter formatter : LOCAL_DATE_TIME_FORMATTERS) {
+                try {
+                    return LocalDateTime.parse(value, formatter);
+                } catch (RuntimeException e) {
+                    // Пробуем следующий форматер
+                }
+            }
+            throw new DateTimeParseException("Не удалось распарсить дату: " + value, value, 0);
         } else if (fieldType == String.class) {
             return value;
         } else if (fieldType == UUID.class) {
