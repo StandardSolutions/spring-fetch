@@ -22,7 +22,7 @@ import java.util.List;
 public class FilterRequest {
 
     @Size(max = 255, message = "Длина строки должна быть не более {max} символов")
-    @Schema(description = "Поле фильтра")
+    @Schema(description = "Поле фильтра", nullable = true)
     private final String field;
 
     @NotNull
@@ -31,12 +31,13 @@ public class FilterRequest {
     private final String operator;
 
     @Size(max = 255, message = "Длина строки должна быть не более {max} символов")
-    @Schema(description = "Значение фильтра")
+    @Schema(description = "Значение фильтра", nullable = true)
     private final String value;
 
+    //TODO hidden = true установлен чтобы избежать циклической зависимости при проверке swagger
     @Valid
     @Size(max = 255, message = "Массив не может содержать более {max} элементов")
-    @Schema(description = "Набор вложенных фильтров")
+    @Schema(description = "Набор вложенных фильтров", hidden = true)
     private final List<FilterRequest> filters;
 
     @JsonCreator

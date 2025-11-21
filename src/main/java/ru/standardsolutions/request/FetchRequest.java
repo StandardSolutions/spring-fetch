@@ -3,6 +3,7 @@ package ru.standardsolutions.request;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
@@ -24,7 +25,7 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 /**
  * Запрос на получение данных с фильтрацией, сортировкой и пагинацией.
  * <p>
- * Если параметры сортировки и фльтрации не переданы, то не применяются.
+ * Если параметры сортировки и фильтрации не переданы, то не применяются.
  * По умолчанию пагинация начинается со страницы 1, с размером страницы 100.
  */
 @Getter
@@ -35,16 +36,20 @@ public class FetchRequest {
 
     @Valid
     @Size(max = 255)
-    @Schema(description = "Список фильтров")
+    @ArraySchema(schema = @Schema(description = "Фильтр", nullable = true),
+            arraySchema = @Schema(description = "Список фильтров", nullable = true)
+    )
     private final List<FilterRequest> filters;
 
     @Valid
     @Size(max = 255)
-    @Schema(description = "Параметры сортировки")
+    @ArraySchema(schema = @Schema(description = "Параметр сортировки"),
+            arraySchema = @Schema(description = "Список параметров сортировки", nullable = true)
+    )
     private final List<SortRequest> sort;
 
     @Valid
-    @Schema(description = "Параметры страницы")
+    @Schema(description = "Параметры страницы", nullable = true)
     private final PageRequest page;
 
     @JsonCreator
