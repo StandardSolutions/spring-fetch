@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode
-@Schema(description = "Параметры фильтрации")
+@Schema(description = "Параметры фильтрации", additionalProperties = Schema.AdditionalPropertiesValue.TRUE)
 public class FilterRequest {
 
     @Size(max = 255, message = "Длина строки должна быть не более {max} символов")

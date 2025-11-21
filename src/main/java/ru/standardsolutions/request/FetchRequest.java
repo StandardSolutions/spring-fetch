@@ -31,7 +31,9 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 @Getter
 @ToString
 @EqualsAndHashCode
-@Schema(description = "Запрос на получение данных с фильтрацией, сортировкой и пагинацией")
+@Schema(description = "Запрос на получение данных с фильтрацией, сортировкой и пагинацией",
+        additionalProperties = Schema.AdditionalPropertiesValue.TRUE
+)
 public class FetchRequest {
 
     @Valid
