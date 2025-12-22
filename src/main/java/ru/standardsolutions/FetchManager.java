@@ -9,6 +9,7 @@ import ru.standardsolutions.dto.generic.GenericFetchRequestDto;
 import ru.standardsolutions.request.FetchRequest;
 import ru.standardsolutions.request.FetchRequestBuilder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -43,4 +44,15 @@ public class FetchManager {
 
         return new FetchResponse<>(entityPage, dtoList);
     }
+
+    public static <T, R extends GenericFetchRequestDto<?, ?>> FetchResponse<T> emptyFetch(R request) {
+        return new FetchResponse<>(
+                Page.empty(org.springframework.data.domain.PageRequest.of(
+                        0,
+                        request.getPage().getSize()
+                )),
+                Collections.emptyList()
+        );
+    }
+
 }
